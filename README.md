@@ -38,8 +38,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
+<img src='https://i.imgur.com/m3Snt6i.gif' title='Video Walkthrough1' width='' alt='Video Walkthrough1' />
+<img src='https://i.imgur.com/aISUzli.gif' title='Video Walkthrough2' width='' alt='Video Walkthrough2' />
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
@@ -54,7 +54,7 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 ## License
 
-Copyright [yyyy] [name of copyright owner]
+Copyright [2018] [Pranaya Adhikari]
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
