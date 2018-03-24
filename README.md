@@ -109,6 +109,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='https://i.imgur.com/ijYMHud.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Here's a walkthrough of AutoLayout:
+
+<img src='https://i.imgur.com/Bg4Z1eM.gif' title='Video Walkthrough of AutoLayout' width='' alt='Video Walkthrough of AutoLayout' />
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
