@@ -21,6 +21,7 @@ class User {
     var createdAt: String?
     var profileBackgroundImageUrl: String?
     var profileImageUrl: URL?
+    var backgroundImageUrl: URL?
     
     // For user persistance
     var dictionary: [String: Any]?
@@ -68,6 +69,8 @@ class User {
         let profileImgString = dictionary["profile_image_url_https"] as? String
         //print(profileImgString)
         profileImageUrl = URL(string: profileImgString!)
+        backgroundImageUrl = URL(string: profileBackgroundImageUrl!)
+        
 
     }
 }

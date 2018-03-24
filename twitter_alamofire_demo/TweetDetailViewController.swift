@@ -1,76 +1,58 @@
 //
-//  TweetCell.swift
+//  TweetDetailViewController.swift
 //  twitter_alamofire_demo
 //
-//  Created by Charles Hieger on 6/18/17.
-//  Copyright © 2017 Charles Hieger. All rights reserved.
+//  Created by Pranaya Adhikari on 3/23/18.
+//  Copyright © 2018 Charles Hieger. All rights reserved.
 //
 
 import UIKit
-import Alamofire
-import AlamofireImage
 
-
-class TweetCell: UITableViewCell {
+class TweetDetailViewController: UIViewController {
     
-    @IBOutlet weak var tweetTextLabel: UILabel!
+    var tweet: Tweet!
     
-    @IBOutlet weak var retweetButtonLabel: UIButton!
     
     @IBOutlet weak var favoriteButtonLabel: UIButton!
+    @IBOutlet weak var retweetButtonLabel: UIButton!
+    
+    @IBOutlet weak var replyButtonLabel: UIButton!
+    
+    @IBOutlet weak var favoritesLabelView: UILabel!
+    @IBOutlet weak var retweetsLabelView: UILabel!
+    @IBOutlet weak var tweetDateLabelView: UILabel!
+    @IBOutlet weak var tweetLabelView: UILabel!
+    @IBOutlet weak var profileNameLabelView: UILabel!
+    @IBOutlet weak var usernameLabelView: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var profileNameLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    
-    @IBOutlet weak var replyCountLabel: UILabel!
-    
-    @IBOutlet weak var favoritesCountLabel: UILabel!
-    @IBOutlet weak var retweetCountLabel: UILabel!
-    
-    var tweet: Tweet! {
-        didSet {
-            tweetTextLabel.text = tweet.text
-            dateLabel.text = tweet.createdAtString
-            profileNameLabel.text = tweet.user.screenName
-            nameLabel.text = tweet.user.name
-            //replyCountLabel.text = tweet.reply
-            retweetCountLabel.text = "\(tweet.retweetCount)"
-            favoritesCountLabel.text =  "\(tweet.favoriteCount ?? 0)"
-            profileImageView.af_setImage(withURL: tweet.user.profileImageUrl!)
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        // Configure the view for the selected state
+        usernameLabelView.text = tweet.user.name
+        profileNameLabelView.text = "@\(tweet.user.screenName!)"
+        tweetLabelView.text = tweet.text
+        tweetDateLabelView.text = tweet.createdAtString
+        favoritesLabelView.text = "\(tweet.favoriteCount ?? 0)"
+        retweetsLabelView.text = "\(tweet.retweetCount)"
+        profileImageView.af_setImage(withURL: tweet.user.profileImageUrl!)
+        
+
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func onFavorites(_ sender: Any) {
-        if (favoriteButtonLabel.isSelected == true) {
-            favoriteButtonLabel.isSelected = false
-            favoriteButtonLabel.setImage(UIImage(named: "favor-icon"), for: .normal)
-            unFavoriteTweet()
-        }else {
-            favoriteButtonLabel.isSelected = true
-            favoriteButtonLabel.setImage(UIImage(named: "favor-icon-red"), for: .normal)
-            favoriteTweet()
-        }
-        
+  
+    @IBAction func onTapReply(_ sender: Any) {
     }
     
-    @IBAction func onReply(_ sender: Any) {
-        
-        
-    }
     
-    @IBAction func onRetweet(_ sender: Any) {
+    
+    @IBAction func onTapRetweet(_ sender: Any) {
+        
         if (retweetButtonLabel.isSelected == true) {
             retweetButtonLabel.isSelected = false
             retweetButtonLabel.setImage(UIImage(named: "retweet-icon"), for: .normal)
@@ -80,12 +62,22 @@ class TweetCell: UITableViewCell {
             retweetButtonLabel.setImage(UIImage(named: "retweet-icon-green"), for: .normal)
             retweetTweet()
         }
+        
+        
     }
     
-
-    
-    @IBAction func onMessage(_ sender: Any) {
+    @IBAction func onTapFavorite(_ sender: Any) {
+        if (favoriteButtonLabel.isSelected == true) {
+            favoriteButtonLabel.isSelected = false
+            favoriteButtonLabel.setImage(UIImage(named: "favor-icon"), for: .normal)
+            unFavoriteTweet()
+        }else {
+            favoriteButtonLabel.isSelected = true
+            favoriteButtonLabel.setImage(UIImage(named: "favor-icon-red"), for: .normal)
+            favoriteTweet()
+        }
     }
+    
     
     func favoriteTweet() {
         APIManager.shared.favorite(tweet) { (tweet: Tweet?, error: Error?) in
@@ -140,9 +132,25 @@ class TweetCell: UITableViewCell {
         }
     }
     
-   
+    
     func refreshData() {
-        retweetCountLabel.text = "\(tweet.retweetCount)"
-        favoritesCountLabel.text =  "\(tweet.favoriteCount ?? 0)"
+        retweetsLabelView.text = "\(tweet.retweetCount)"
+        favoritesLabelView.text =  "\(tweet.favoriteCount ?? 0)"
     }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "replySegue" {
+            let replyVC = segue.destination as! ComposeViewController
+            replyVC.startText = "@\(tweet.user.screenName!) "
+            replyVC.postButton.title = "Reply"
+        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    
+
 }
